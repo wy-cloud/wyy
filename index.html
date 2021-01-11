@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>网易云音乐</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="header">
+		<div class="nav">
+			<h1></h1>
+			<ul>
+				<li class="active"><a href="">发现音乐</a></li>
+				<li><a href="">我的音乐</a></li>
+				<li><a href="">朋友</a></li>
+				<li><a href="">商城</a></li>
+				<li><a href="">音乐人</a></li>
+				<li><a href="">下载客户端</a></li>
+			</ul>
+			<div class="right">
+				<form action="">
+					<span></span><input type="text" placeholder="音乐\视频\电台\用户">
+				</form>
+				<button>创作者中心</button>
+				<a href="">登录</a>
+			</div>
+		</div>
+	</div>
+	<div class="second-nav">
+		<ul class="clearfix">
+			<li class="active"><a href="">推荐</a></li>
+			<li><a href="">排行榜</a></li>
+			<li><a href="">歌单</a></li>
+			<li><a href="">主播电台</a></li>
+			<li><a href="">歌手</a></li>
+			<li><a href="">新碟上架</a></li>
+		</ul>
+	</div>
+
+
+	<div class="banner-box">
+		<div class="banner collpase">
+			<div class="box clearfix">
+				<div class="part clearfix">
+					<img src="images/banner1.jpg" alt="">
+				</div>
+				<div class="part clearfix">
+					<img src="images/banner2.jpg" alt="">
+				</div>
+				<div class="part clearfix">
+					<img src="images/banner3.jpg" alt="">
+				</div>
+			</div>
+
+			<div class="btn"></div>
+			<div class="btn btnr"></div>
+			<div class="claerfix"></div>
+			<ul>
+				<li class="on"></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+
+
+		<div class="download">
+			<div class="download-box">
+				<p>PC 安卓 iPhone WP iPad Mac 六大客户端</p>
+			</div>
+		</div>
+	</div>
+
+
+
+
+<script>
+//创建Banner构造函数
+function Banner(id){
+	this.imgs=document.querySelectorAll(id+' .part');//获取图片总节点
+	this.lis=document.querySelectorAll(id+' li');//获取点的节点
+	this.btns=document.querySelectorAll(id+' .btn');//获取左右节点
+	this.flag=0;//轮播显示区域的索引值
+	this.bgColor = ['#C9C9EF','#650B0B','#567381'];
+	this.initialize=function(){//初始化函数
+		for(var i=0;i<this.imgs.length;i++){
+			var count=-i*1000;
+			this.imgs[i].style.left=count+'px';
+		}
+		this.imgs[this.imgs.length-1].style.left="1000px";
+		this.bgChange(this.bgColor[this.flag])
+	}
+	this.play=function(dec){//banner主函数
+		var dd=1;
+		if(!dec){//dec判断传过来的方向
+			dd=-1;
+		}
+		for(var i=0;i<this.imgs.length;i++){
+			this.imgs[i].style.transition="all 0.4s ease";
+			this.imgs[i].style.left=(this.imgs[i].offsetLeft+dd*1000)+'px';
+			this.lis[i].className='';
+		}
+		this.lis[this.flag].className='on';
+		this.bgChange(this.bgColor[this.flag])
+		var ee=this;
+		setTimeout(function(){
+			ee.imgs[ee.add(ee.flag)].style.transition="none";
+			ee.imgs[ee.add(ee.flag)].style.left="-1000px";
+			ee.imgs[ee.remove(ee.flag)].style.transition="none";
+			ee.imgs[ee.remove(ee.flag)].style.left="1000px";
+		},400);
+	}
+	this.add=function(num){//累加函数
+		num++;
+		if(num>=this.imgs.length){
+			num=0;
+		}
+		return num;
+	}
+
+	this.remove=function(num){//累减函数
+		num--;
+		if(num<0){num=this.imgs.length-1;}
+		return num;
+	}
+	this.trans='';//储存计时器
+	this.start=function(){//自动循环开始函数
+		var ee=this;
+		this.trans=setInterval(function(){
+			ee.flag=ee.add(ee.flag);
+			ee.play(true);
+		},4000);
+	}
+
+	this.bgChange=function(color){
+		document.querySelectorAll('.banner-box')[0].style.background = color;
+	}
+		
+	this.stop=function(){//停止函数
+		clearInterval(this.trans);
+	}
+	this.onclick=function(){//点击事件处理函数
+		var ee=this;
+		this.btns[0].onclick=function(){//左切换
+			ee.flag=ee.remove(ee.flag);
+			ee.play(false);
+		}
+		this.btns[1].onclick=function(){//右切换
+			ee.flag=ee.add(ee.flag);
+			ee.play(true);
+		}
+		for(var i=0;i<this.btns.length;i++){//切换暂停函数
+			this.btns[i].onmouseover=function(){
+				ee.stop();
+			}
+			this.btns[i].onmouseout=function(){
+				ee.start();
+			}
+		}
+	}
+	this.initialize();//执行初始化函数
+	this.start();//执行自动循环函数
+	this.onclick();//执行点击事件函数
+}
+
+
+var banner=new Banner('.collpase');//初始化构造函数
+</script>
+	
+</body>
+</html>
