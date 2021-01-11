@@ -83,31 +83,23 @@ function Banner(id){
 	this.bgColor = ['#C9C9EF','#650B0B','#567381'];
 	this.initialize=function(){//初始化函数
 		for(var i=0;i<this.imgs.length;i++){
-			var count=-i*1000;
-			this.imgs[i].style.left=count+'px';
+			this.imgs[i].style.left='0px';
+			this.imgs[i].style.opacity = 0;
 		}
-		this.imgs[this.imgs.length-1].style.left="1000px";
+
+		this.imgs[this.flag].style.opacity = 1;
+		
 		this.bgChange(this.bgColor[this.flag])
 	}
-	this.play=function(dec){//banner主函数
-		var dd=1;
-		if(!dec){//dec判断传过来的方向
-			dd=-1;
-		}
+	this.play=function(){//banner主函数
 		for(var i=0;i<this.imgs.length;i++){
 			this.imgs[i].style.transition="all 0.4s ease";
-			this.imgs[i].style.left=(this.imgs[i].offsetLeft+dd*1000)+'px';
+			this.imgs[i].style.opacity=0;
 			this.lis[i].className='';
 		}
+		this.imgs[this.flag].style.opacity=1;
 		this.lis[this.flag].className='on';
 		this.bgChange(this.bgColor[this.flag])
-		var ee=this;
-		setTimeout(function(){
-			ee.imgs[ee.add(ee.flag)].style.transition="none";
-			ee.imgs[ee.add(ee.flag)].style.left="-1000px";
-			ee.imgs[ee.remove(ee.flag)].style.transition="none";
-			ee.imgs[ee.remove(ee.flag)].style.left="1000px";
-		},400);
 	}
 	this.add=function(num){//累加函数
 		num++;
@@ -127,7 +119,7 @@ function Banner(id){
 		var ee=this;
 		this.trans=setInterval(function(){
 			ee.flag=ee.add(ee.flag);
-			ee.play(true);
+			ee.play();
 		},4000);
 	}
 
@@ -142,11 +134,11 @@ function Banner(id){
 		var ee=this;
 		this.btns[0].onclick=function(){//左切换
 			ee.flag=ee.remove(ee.flag);
-			ee.play(false);
+			ee.play();
 		}
 		this.btns[1].onclick=function(){//右切换
 			ee.flag=ee.add(ee.flag);
-			ee.play(true);
+			ee.play();
 		}
 		for(var i=0;i<this.btns.length;i++){//切换暂停函数
 			this.btns[i].onmouseover=function(){
@@ -157,9 +149,29 @@ function Banner(id){
 			}
 		}
 	}
+	this.lihover=function(){//点击事件处理函数
+		var ee=this;
+		
+		for(var i=0;i<this.lis.length;i++){//切换暂停函数
+			this.lis[i].index =i;
+			this.lis[i].onmouseover=function(){
+				ee.stop();
+			}
+			this.lis[i].onmouseout=function(){
+				ee.start();
+			}
+
+			this.lis[i].onclick=function(){
+				ee.flag = this.index;
+				ee.play();
+			}
+			
+		}
+	}
 	this.initialize();//执行初始化函数
 	this.start();//执行自动循环函数
 	this.onclick();//执行点击事件函数
+	this.lihover();
 }
 
 

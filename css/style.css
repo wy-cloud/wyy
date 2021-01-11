@@ -195,8 +195,9 @@
 	/*border:2px solid #fff;*/
 	border-radius: 50%;
 	box-shadow: 0 0 5px rgba(0,0,0,0.4);
+	cursor: pointer;
 }
-.banner ul li.on{
+.banner ul li.on,.banner ul li:hover{
 	background: #f92651;
 }
 .banner .btn{
