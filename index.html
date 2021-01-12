@@ -76,6 +76,7 @@
 <script>
 //创建Banner构造函数
 function Banner(id){
+    console.log(this);
 	this.imgs=document.querySelectorAll(id+' .part');//获取图片总节点
 	this.lis=document.querySelectorAll(id+' li');//获取点的节点
 	this.btns=document.querySelectorAll(id+' .btn');//获取左右节点
