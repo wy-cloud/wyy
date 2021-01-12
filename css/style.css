@@ -412,6 +412,76 @@ a:hover{
 
 }
 
+.box{
+            margin:0 auto;
+            width: 689px;
+            height: 300px;
+        }
+
+.hezi{
+            margin: 0 auto;
+            float: left;
+            width: 689px;
+            justify-content: space-around;
+            border-bottom: 3px solid red;
+        }
+
+.zuo{
+            float: left;
+        }
+
+.you{
+            float: right;
+        }
+
+.hezi1{
+            width: 689px;
+            height: 250px;
+            display: flex;
+          }
+        
+.bottom{
+            margin: 0 auto;
+            float: left;
+            width: 689px;
+            justify-content: space-around;
+            border-bottom: 2px solid red;
+        }
+.box1{
+            margin: 0 auto;
+            width: 689px;
+            height: 500px;
+            justify-content: space-between;
+        }
+.box2{
+            width: 689px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+        }
+
+
+
+.biao{
+            width: 180px;
+            float: left;
+            margin-right: 20px;
+          }
+
+.xin{
+          width: 180px;
+          float: left;
+          margin-right: 20px;
+         }
+
+.yuan{
+            width: 180px;
+            float: left;
+            margin-right: 20px;
+          }
+.gang{
+            border-bottom: 1px solid lightgray;
+        }
 
 
 
